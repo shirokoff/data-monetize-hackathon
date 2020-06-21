@@ -5,10 +5,15 @@ using UnityEngine;
 public class TouchController : MonoBehaviour
 {
 	public GameObject[] toggleableObjects;
+	public GameObject[] inactive;
 
     void Start()
     {
-    	toggleableObjects = GameObject.FindGameObjectsWithTag("Toggleable");    
+		inactive = GameObject.FindGameObjectsWithTag("inactive");
+		foreach(GameObject o in inactive) {
+			toggleVisibility(o);
+		}
+    	toggleableObjects = GameObject.FindGameObjectsWithTag("Toggleable");
     }
 
     void Update()
@@ -16,6 +21,9 @@ public class TouchController : MonoBehaviour
    		if (Input.GetMouseButtonDown(0)) {
             Debug.Log("Pressed primary button.");
             foreach(GameObject o in toggleableObjects) {
+				toggleVisibility(o);
+			}
+			foreach(GameObject o in inactive) {
 				toggleVisibility(o);
 			}
    		}
